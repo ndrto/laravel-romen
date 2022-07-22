@@ -3,6 +3,8 @@
 ## What It Does
 This package allows you to create dynamic menu with role and permissions.
 
+This package require `spati/laravel-permission`.
+
 Once installed you can do stuff like this:
 
 ```bash
