@@ -17,5 +17,12 @@
             "email": "andhirto5@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+	    "laravel": {
+	        "providers": [
+	            "Ndrto\\Romen\\RomenServiceProvider"
+	        ]
+	    }
+	}
 }
