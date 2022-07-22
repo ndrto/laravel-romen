@@ -1,0 +1,21 @@
+<?php
+
+namespace Database\Seeders;
+
+use File;
+use InvalidArgumentException;
+
+trait HasJsonFile
+{
+
+    public function getJson($associative = false)
+    {
+        return json_decode(File::get($this->jsonFile()), $associative);
+    }
+
+    protected function jsonFile(): string
+    {
+        return '';
+    }
+
+}

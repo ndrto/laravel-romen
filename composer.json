@@ -1,0 +1,21 @@
+{
+    "name": "ndrto/laravel-romen",
+    "description": "Laravel spatie role and menus utilities",
+    "require": {
+        "php": "^8.0.2",
+        "spatie/laravel-permission": "^5.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ndrto\\Romen\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "andhirto",
+            "email": "andhirto5@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

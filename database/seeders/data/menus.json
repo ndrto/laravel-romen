@@ -1,0 +1,20 @@
+[
+    {
+        "name": "home",
+        "title": "Home",
+        "url": "/admin/home",
+        "order": "1",
+        "icon": "os-icon os-icon-window-content",
+        "roles": ["administrator", "operator"],
+        "child": []
+    },
+    {
+        "name": "logout",
+        "title": "Logout",
+        "url": "/logout",
+        "order": "9",
+        "icon": "os-icon os-icon-signs-11",
+        "roles": "*",
+        "child": []
+    }
+]

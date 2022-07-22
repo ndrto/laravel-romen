@@ -1,0 +1,67 @@
+<?php
+
+namespace Database\Seeders;
+
+use Ndrto\Romen\Models\Menu;
+use Arr;
+use Artisan;
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+
+class MenuSeeder extends Seeder
+{
+
+    use HasJsonFile;
+
+    public function run()
+    {
+        $this->registerMenus($this->getJson(true), 0);
+
+        Artisan::call('cache:clear');
+    }
+
+    protected function jsonFile(): string
+    {
+        return database_path('seeders/data/menus.json');
+    }
+
+    public function registerMenus($menus, $parent = 0)
+    {
+        if (empty($menus)) {
+            return;
+        }
+
+        foreach ($menus as $menu) {
+
+            // register menu
+            $created = Menu::updateOrCreate(
+                ['name' => Arr::get($menu, 'name')],
+                [
+                    'parent' => $parent,
+                    'title' => Arr::get($menu, 'title'),
+                    'url' => Arr::get($menu, 'url'),
+                    'order' => Arr::get($menu, 'order', 0),
+                    'class_icon' => Arr::get($menu, 'icon'),
+                ]
+            );
+
+            // assign menu with role
+            $roles = $this->extractRoleIds(Arr::get($menu, 'roles'));
+
+            // assign roles to menu
+            $created->roles()->sync($roles);
+
+            // register child menu
+            $this->registerMenus(Arr::get($menu, 'child'), $created->id);
+        }
+    }
+
+    protected function extractRoleIds($roles)
+    {
+        if ($roles == '*') {
+            return Role::get()->pluck('id')->toArray();
+        }
+
+        return Role::whereIn('name', $roles)->pluck('id')->toArray();
+    }
+}

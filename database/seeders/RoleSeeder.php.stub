@@ -1,0 +1,45 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class RoleSeeder extends Seeder
+{
+
+    use HasJsonFile;
+
+    public function run()
+    {
+        foreach ($this->getJson(true) as $data) {
+            $role = Role::updateOrCreate(
+                ['name' => $data['role']]
+            );
+
+            $this->assignPermissions($role, $data['permissions']);
+        }
+    }
+
+    protected function assignPermissions($role, array $permissions)
+    {
+        $this->createPermissions($permissions);
+
+        $role->syncPermissions($permissions);
+    }
+
+    protected function createPermissions(array $permissions)
+    {
+        foreach ($permissions as $permission) {
+            Permission::updateOrCreate(
+                ['name' => $permission]
+            );
+        }
+    }
+
+    protected function jsonFile(): string
+    {
+        return database_path('seeders/data/roles.json');
+    }
+}

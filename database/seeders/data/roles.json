@@ -1,0 +1,17 @@
+[
+    {
+        "role": "administrator",
+        "permissions": [
+            "create-project",
+            "edit-project",
+            "delete-project",
+            "view-project"
+        ]
+    },
+    {
+        "role": "operator",
+        "permissions": [
+            "view-project"
+        ]
+    }
+]
